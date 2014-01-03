@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<head> 
+
+<!-- Metadata -->
+<meta charset="utf-8">
+<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="distribution" content="Global" /> 
+<meta name="robots" content="index,follow" /> 
+<meta name="author" content="Zhou Yuan" /> 
+<meta name="copyright" content="Copyright (C) Zhou Yuan" /> 
+<meta name="rating" content="General" /> 
+<meta name="revisit-after" content="14 Days" /> 
+<meta name="description" content="" /> 
+<meta name="keywords" content="" /> 
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+<title>${page_title}</title>
+
+<!-- favicon -->  
+<link rel="shortcut icon" href="${STATIC_URI_BASE}images/shared/favicon.ico" /> 
+
+<!-- CSS Style --> 
+<link rel="stylesheet" href="${APP_URI_BASE}css/index/main.css" /> 
+
+<!-- Google Web Font --> 
+<link href="http://fonts.googleapis.com/css?family=Merriweather:400,700" rel="stylesheet" />
+
+<!-- JavaScript -->
+<script src="${APP_URI_BASE}js/index/jquery-1.10.2.min.js"></script>
+<script src="${APP_URI_BASE}js/index/modernizr.custom.js"></script>
+
+</head> 
+
+<body>	
+
+<!-- begin header -->
+<header class="header"> 
+
+<div class="inner">
+
+<div class="row12">
+
+<div class="span2">
+<div class="logo">
+<a href="http://infopotato.com/" title="Return to frontpage">PotatoPy</a>
+</div>
+</div>
+
+<div class="span10">
+
+</div>
+
+</div>
+
+</div>	
+
+</header>  
+<!-- end header --> 
+
+<!-- begin main content --> 
+<div class="content"> 
+<div class="inner">
+
+<article>
+
+<h1 class="center">PotatoPy&mdash;Lightweight Python Web Development Framework</h1>
+
+<p>
+PotatoPy is a very lightweight, well-designed, well-documented, and fully WSGI compatible Python Web Development Framework loosely built around HTTP in a RESTful approach. It incorporated many good ideas and useful components from other well-known web frameworks and toolkits. Working with PotatoPy in a structured and rapid manner enables web developers to create efficient, extensible, and maintainable web applications.
+</p>
+
+<h2>How to use PotatoPy with Apache and mod_wsgi</h2>
+
+<p>
+Once you've got mod_wsgi installed and activated, edit your Apache server's <code>httpd.conf</code> file and add the following.
+</p>
+
+<div class="syntax"><pre><span class="c"># mod_wsgi for Python</span>
+<span class="nb">LoadModule</span> wsgi_module libexec/apache2/mod_wsgi.so
+
+<span class="c"># Let Apache serve static resources</span>
+<span class="nb">Alias</span> <span class="sx">/static/</span> <span class="sx">/yourpath/potatopy/application/static/</span>
+
+<span class="c"># wsgi_mod handdles all other dynamic content</span>
+<span class="nb">WSGIScriptAlias</span> / <span class="sx">/yourpath/potatopy/index.py</span>
+</pre></div>
+
+<h2>Install PotatoPy from the tarball release</h2>
+
+<ol>
+<li>Download the most recent tarball</li>
+<li>Unpack the tarball</li>
+<li>python setup.py install</li>
+</ol>
+
+<div class="note_box">
+Note that the last command will automatically download and install setuptools if you don’t already have it installed. This requires a working Internet connection.
+</div>
+
+<p>
+This will install PotatoPy into your Python installation's <code>site-packages</code> directory.
+</p>
+
+<h2>Bootstrap Script</h2>
+
+<p>
+<code>index.py</code> is the bootstrap script (entry point):
+</p>
+
+<div class="syntax"><pre><span class="c">##############################################################################</span>
+<span class="c">#</span>
+<span class="c"># Copyright (c) 2013-2014 Zhou Yuan &lt;yuanzhou19@gmail.com&gt;</span>
+<span class="c"># All Rights Reserved.</span>
+<span class="c">#</span>
+<span class="c"># This software is subject to the provisions of the MIT license at</span>
+<span class="c"># http://www.opensource.org/licenses/mit-license.php</span>
+<span class="c">#</span>
+<span class="c">##############################################################################</span>
+
+<span class="c"># WSGI application script </span>
+<span class="c"># Deploying PotatoPy with Apache with mod_wsgi is the recommended way into production</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c"># The path of the root package - the root of the hierarchy of packages</span>
+<span class="c"># This isn't really a package, since it doesn't have an __init__.py file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/Library/WebServer/Documents/potatopy&#39;</span>
+<span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">potatopy.core.wsgi_starter</span> <span class="kn">import</span> <span class="n">WSGI_Starter</span>
+
+<span class="c"># This is our application object - WSGI application entry point </span>
+<span class="c"># mod_wsgi requires that the WSGI application entry point be called &#39;application&#39;.</span>
+<span class="c"># If you want to call it something else then you would need to configure mod_wsgi explicitly to use the other name</span>
+<span class="c"># The WSGI application will be run as the user that Apache runs as</span>
+<span class="n">application</span> <span class="o">=</span> <span class="n">WSGI_Starter</span><span class="p">()</span>
+</pre></div>
+
+<h2>Application Manager</h2>
+
+<p>
+Then you can create a file called <code>home_manager.py</code> with the following code to handle the request to <code>http://localhost/home/index</code>
+</p>
+
+<div class="syntax"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="c"># The path of the root package - the root of the hierarchy of packages</span>
+<span class="c"># This isn't really a package, since it doesn't have an __init__.py file</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/Library/WebServer/Documents/potatopy&#39;</span>
+<span class="k">if</span> <span class="n">path</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">application.configs.constants</span> <span class="kn">import</span> <span class="n">APP_URI_BASE</span><span class="p">,</span> <span class="n">STATIC_URI_BASE</span>
+
+<span class="kn">from</span> <span class="nn">potatopy.core.manager</span> <span class="kn">import</span> <span class="n">Manager</span>
+
+<span class="c"># Class names should normally use the CapWords convention.</span>
+<span class="k">class</span> <span class="nc">Home_Manager</span><span class="p">(</span><span class="n">Manager</span><span class="p">):</span>
+    <span class="c"># Function names should be lowercase, with words separated by underscores as necessary to improve readability.</span>
+    <span class="c"># Don&#39;t use spaces around the = sign when used to indicate a keyword argument or a default parameter value.</span>
+    <span class="c"># We don&#39;t use the term &quot;private&quot; here, since no attribute is really private in Python </span>
+    <span class="k">def</span> <span class="nf">get_index</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c"># Must be a dictionary</span>
+        <span class="n">template_vars</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;APP_URI_BASE&#39;</span><span class="p">:</span> <span class="n">APP_URI_BASE</span><span class="p">,</span> <span class="s">&#39;STATIC_URI_BASE&#39;</span><span class="p">:</span> <span class="n">STATIC_URI_BASE</span><span class="p">,</span> <span class="s">&#39;page_title&#39;</span><span class="p">:</span> <span class="s">&#39;Home&#39;</span><span class="p">}</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">render_template</span><span class="p">(</span><span class="s">&#39;home_index.html&#39;</span><span class="p">,</span> <span class="n">template_vars</span><span class="p">)</span>
+        <span class="c"># Must be a dictionary</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;type&#39;</span><span class="p">:</span> <span class="s">&#39;text/html; charset=utf-8&#39;</span><span class="p">,</span> <span class="s">&#39;content&#39;</span><span class="p">:</span> <span class="n">content</span><span class="p">}</span>
+        
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">response</span><span class="p">(</span><span class="n">options</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Template Using Value Substitution</h2>
+
+<p>
+PotatoPy's template in essence is the String Substitutions based on the <code>$</code> sign, and there's no embeded logic or control-flow statements into the templates. Below are the rules:
+</p>
+
+<ul>
+<li>
+<code>&#36;&#36;</code> is an escape; it is replaced with a single <code>&#36;</code>.
+</li>
+<li>
+<code>&#36;identifier</code> names a substitution placeholder matching a mapping key of
+<code>&quot;identifier&quot;</code>. By default, <code>&quot;identifier&quot;</code> must spell a Python identifier. The first non-identifier character after the <code>$</code> character terminates this placeholder specification.
+</li>
+<li>
+<code>&#36;{identifier}</code> is equivalent to <code>&#36;identifier</code>. It is required when valid
+identifier characters follow the placeholder but are not part of the placeholder, such as <code>&quot;&#36;{noun}ification&quot;</code>.
+</li>
+</ul>
+
+<p>
+If there's no variables need to be replaced in the templte, PotatoPy will just return the content of the template as a string for output.
+</p>
+
+</article>
+
+</div></div> 
+<!-- end main content --> 
+
+<!-- begin footer --> 
+<footer class="footer">
+<div class="inner">
+Powered by PotatoPy Framework &copy; Zhou Yuan 2013-2014
+</div>
+</footer>
+<!-- end footer -->
+
+<!-- begin back to top -->
+<div id="back_to_top" title="Back to top of the page"></div>
+
+<script>
+$(function() {
+    $(window).scroll(function() {
+        if ($(this).scrollTop() != 0) {
+            $('#back_to_top').fadeIn(); 
+        } else {
+            $('#back_to_top').fadeOut();
+        }
+    });
+
+    $('#back_to_top').click(function() {
+        $('body,html').animate({scrollTop:0},800);
+    }); 
+});
+</script>
+<!-- end back to top -->
+
+</body> 
+
+</html> 
