@@ -11,6 +11,12 @@
 # WSGI application script 
 # Deploying PotatoPy with Apache with mod_wsgi is the recommended way into production
 
+import os
+
+# Set the 'PYTHON_EGG_CACHE' cache environment variable
+# to a directory which is owned and/or writable by the user that Apache runs as
+# This fixes the Python egg cache directory error
+os.environ['PYTHON_EGG_CACHE'] = '/tmp/python-eggs'
 import sys
 
 
