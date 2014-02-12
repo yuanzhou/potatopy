@@ -4,7 +4,7 @@ PotatoPy is a very lightweight, well-designed, well-documented, and fully WSGI c
 
 ## Official Documentation
 
-Please visit [PotatoPy Official Site](http://infopotato.com/) for more information and detailed documentation.
+Please visit [PotatoPy Official Site](http://potatopy.com/) for more information and detailed documentation.
 
 ## License
 
