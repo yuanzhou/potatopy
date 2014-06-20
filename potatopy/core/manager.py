@@ -142,10 +142,8 @@ class Manager(object):
                 # Must not contain a message body for 204 and 304
                 if (options['status'] == 204 or options['status'] == 304):
                     response_content = ''
-
             else:
                 Logger.log(APP_LOG_DIR, 'ERROR', __name__, 'The provided HTTP status code is invalid!')
-
         else:
             response_status = '200 OK'
 
