@@ -15,14 +15,6 @@ import sys
 
 from wsgiref.simple_server import make_server
 
-# The path of the root package - the root of the hierarchy of packages
-# This isn't really a package, since it doesn't have an __init__.py file
-path = '/Library/WebServer/Documents/potatopy'
-# sys.path is just a regular Python list
-if path not in sys.path:
-	# Add module directory to Python's search path
-    sys.path.insert(1, path)
-
 from potatopy.core.wsgi_starter import WSGI_Starter
 
 # This is our application object - WSGI application entry point 
